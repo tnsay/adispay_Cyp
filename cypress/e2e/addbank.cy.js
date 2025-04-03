@@ -2,7 +2,7 @@ describe ('allows user to add bank', () =>{
 
     it('visit site',() =>{
 
-        cy.visit('https://dev.dashboard.addispay.et/');
+        cy.visit('/');
         cy.get('.form-control')
 
         cy.get('#passwordInput')

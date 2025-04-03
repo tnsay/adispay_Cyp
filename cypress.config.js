@@ -2,6 +2,7 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   e2e: {
+    
     watchForFileChanges: false,
     chromeWebSecurity: false,
     setupNodeEvents(on, config) {
@@ -11,7 +12,7 @@ module.exports = defineConfig({
         ignoreFetchError: () => null,
       });
     },
-    //baseUrl: 'https://dev.com'
+    baseUrl: 'https://dev.dashboard.addispay.et',
 
   }
 });

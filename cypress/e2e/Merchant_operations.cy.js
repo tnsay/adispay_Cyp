@@ -1,13 +1,10 @@
 /// <reference types = "cypress" />
 
 describe ('Dashboard Navigation', () =>{
-    before(() => {
-        cy.visit('https://dev.dashboard.addispay.et')
-        cy.get('.form-control').type('943327311')
-        cy.get('#passwordInput').type('Tina@1234')
-        cy.get('.mt-4 > .w-\\[353\\.04px\\]').click()
-        cy.url().should('include', '/Dashboard')  
-        
+
+    beforeEach(() => {
+
+        cy.login("925609534", "Tina@1234")     
         // cy.getCookies().then((cookies) => {
         //     cy.log(cookies); // Log all cookies to ensure session is maintained
         //   });
@@ -16,12 +13,11 @@ describe ('Dashboard Navigation', () =>{
 
     
     it('updates business profile' ,() => {
-
+      cy.visit('/');
     });
 
     it('Should navigate to Banks tab and verify content', () => {
    
-      //cy.visit('https://dev.dashboard.addispay.et/Banks'); 
 
     });
 
