@@ -13,6 +13,6 @@ module.exports = defineConfig({
       });
     },
     baseUrl: 'https://dev.dashboard.addispay.et',
-
+    
   }
 });

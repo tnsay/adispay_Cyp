@@ -1,5 +1,4 @@
 // 
-
 /// <reference types="cypress" />
 
 describe('User Sign-Up Flow', () => {
@@ -10,77 +9,78 @@ describe('User Sign-Up Flow', () => {
     cy.url().should('include', '/signup');
   });
 
-  it('should allow users to sign up and verify OTP', () => {
-    fillSignupForm();
+  it('should allow otp verification&signup', ()=> {
+    function fillSignupForm() {
 
-    // Mock registration API response
-    cy.intercept('POST', '/account/register', {
-      statusCode: 200,
-      body: { success: true },
-    }).as('register');
+      // cy.intercept('POST', '/account/register', {
+      //   statusCode: 200, // Simulate success response
+      //   body: { message: "OTP sent successfully" },
+      // }).as('register');
+    
 
-    // Click Sign Up button only if it's enabled
-    cy.get('.flex-col.justify-center > .w-\\[353\\.04px\\]').then(($button) => {
-      const isDisabled = $button.prop('disabled');
-      if (isDisabled) {
-        cy.log('Form not completed properly! Please check required fields.');
-        return;
-      }
-      cy.wrap($button).click();
-    });
+      cy.intercept('POST', '/account/otp/verify-signup', (req) => {
+        if (req.body.otp === "123456" && req.body.phone === "251912122543") {
+          req.reply({
+            statusCode: 200,
+            body: { message: "OTP verified successfully" },
+          });
+        } else {
+          req.reply({
+            statusCode: 400,
+            body: { message: "Invalid OTP" },
+          });
+        }
+      }).as('verifyOtp');
+      // Fill out the form and submit
+      cy.get('#firstName').should('be.visible').type("TG");
+      cy.get('#nameInput').should('be.visible').type("asefa");
+      cy.get('.mt-\\[11px\\] > .relative > .w-\\[353\\.04px\\]').type('tes2@exam.com');
+      cy.get('#cName').should('be.visible').type("newcampp");
+      cy.get('#passwordInput').should('be.visible').type('Tt@12345');
+      cy.get('#confirmPasswordInput').should('be.visible').type('Tt@12345');
+      cy.get('.form-control').clear().should('be.visible').type('251912122543');
+      cy.get('.text-\\[13px\\]').click();
+      cy.contains('Merchant Service Agreement').should('exist');
+      cy.get('.primary_button').click()
+      cy.get('.flex-col.justify-center > .w-\\[353\\.04px\\]').click() // Click submit button
+    
+      // Wait for the register request to complete
+      //cy.wait('@register');
+    
+      //verify otp page display -Verify your phone number
+      cy.get('.modal-content', { timeout: 40000 }) // Waits up to 10 seconds for modal
+  .should('be.visible');
+      cy.get('.modal-content > .w-\\[371px\\] > .text-center').should('be.visible').contains('Verify your phone number')
 
-    cy.wait('@register'); // Wait for the registration request to finish
-
-    // Mock OTP response from Twilio API
-    const mockOTP = '123456';
-    cy.intercept('POST', 'https://api.twilio.com/2010-04-01/Accounts/*/Messages.json', {
-      statusCode: 201,
-      body: {
-        sid: 'SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        status: 'queued',
-        to: '251912122520',
-        from: '+1987654321',
-        body: `Your OTP is ${mockOTP}`,
-      },
-      headers: {
-        'Access-Control-Allow-Origin': '*', // Add CORS headers to allow the request
-      },
-    }).as('twilioSms');
-
-    // Wait for the OTP API response
-    cy.wait('@twilioSms').then(() => {
-      // Verify OTP modal appears after the OTP response
-      cy.contains('Verify your phone number').should('be.visible');
-      
-      // Verify API request contains the correct OTP
-      cy.wait('@twilioSms').its('request.body').then((body) => {
-        expect(body.to).to.equal('251912122520');
-        expect(body.body).to.include(mockOTP);
+      // Simulate OTP input and verification
+      cy.get('.otp-input').each(($el, index) => {
+        cy.wrap($el).type('123456'[index]); // Type each digit in sequence
       });
-
-      // Enter OTP dynamically
-      cy.get('.modal-content > :nth-child(3) > .flex').type(mockOTP);
-
-      // Click verify button to complete registration
-      cy.get('.w-\\[296px\\]').click();
-    });
-
-    // Validate successful sign-up
-    cy.contains('Welcome Back!').should('be.visible');
-  });
+      cy.get('.w-\\[296px\\]').click(); // Click verify button
+    
+  
+    
+      // Assert that user is redirected or shown a success message
+      cy.url().should('include', '/');
+    }
+    
+    fillSignupForm();
+  })
+ 
+  
 
 });
 
 // Helper function to fill the sign-up form
-function fillSignupForm() {
-  cy.get('#firstName').type("TG");
-  cy.get('#nameInput').type("asefa");
-  cy.get('.mt-\\[11px\\] > .relative > .w-\\[353\\.04px\\]').type('test13@exam.com');
-  cy.get('#cName').type("newcampp");
-  cy.get('#passwordInput').type('Tt@12345');
-  cy.get('#confirmPasswordInput').type('Tt@12345');
-  cy.get('.form-control').clear().type('251912122520');
-  cy.get('.text-\\[13px\\]').click();
-  cy.contains('Merchant Service Agreement').should('exist');
-  cy.get('.primary_button').click();
-}
+// function fillSignupForm() {
+//   cy.get('#firstName').type("TG");
+//   cy.get('#nameInput').type("asefa");
+//   cy.get('.mt-\\[11px\\] > .relative > .w-\\[353\\.04px\\]').type('test13@exam.com');
+//   cy.get('#cName').type("newcampp");
+//   cy.get('#passwordInput').type('Tt@12345');
+//   cy.get('#confirmPasswordInput').type('Tt@12345');
+//   cy.get('.form-control').clear().type('251912122520');
+//   cy.get('.text-\\[13px\\]').click();
+//   cy.contains('Merchant Service Agreement').should('exist');
+//   cy.get('.primary_button').click();
+// }

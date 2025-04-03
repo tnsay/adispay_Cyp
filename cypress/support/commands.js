@@ -11,7 +11,7 @@
 //
 // -- This is a parent command --
 // Cypress.Commands.add('login', (email, password) => { ... })
-Cypress.Commands.add('login', (phone, password)=>
+Cypress.Commands.add('loginmerchant', (phone, password)=>
 {
 
     cy.session([phone, password], ()=>{
@@ -24,11 +24,29 @@ Cypress.Commands.add('login', (phone, password)=>
     }, {
         cacheAcrossSpecs: true
     }
-
 )
    
 })
 
+
+Cypress.Commands.add('loginadmin', (email, password)=>
+    {
+    
+        cy.session([email, password], ()=>{
+    
+            cy.visit('/https://dev.admin.addispay.et/')
+            cy.get('#phoneInput').type("admin@addispay.et")
+            cy.get('#passwordInput').type('CU806q')
+            cy.get('select[name="Super Admin"]').select('Super Admin').click()
+
+            
+            cy.url().should('include', '/Dashboard')  
+        }, {
+            cacheAcrossSpecs: true
+        }
+    )
+       
+    })
 
 
 //
