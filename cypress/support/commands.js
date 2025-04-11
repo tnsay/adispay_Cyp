@@ -11,6 +11,7 @@
 //
 // -- This is a parent command --
 // Cypress.Commands.add('login', (email, password) => { ... })
+import 'cypress-file-upload';
 Cypress.Commands.add('loginmerchant', (phone, password)=>
 {
 
@@ -27,7 +28,6 @@ Cypress.Commands.add('loginmerchant', (phone, password)=>
 )
    
 })
-
 
 Cypress.Commands.add('loginadmin', (email, password)=>
     {
