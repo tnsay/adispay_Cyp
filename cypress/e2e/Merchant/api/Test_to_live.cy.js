@@ -94,6 +94,8 @@ describe ('allows user to change to live mode within requirement ,qa', () =>{
                 .should('be.visible')
                 .and('contain', 'Legal Documents Uploaded successfully');
             });          
+            cy.get('.flex-col > .h-full').click()
+            
 
       })
     
