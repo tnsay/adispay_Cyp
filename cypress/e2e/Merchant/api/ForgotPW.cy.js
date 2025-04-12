@@ -11,7 +11,7 @@ it('verify forgot password', () =>{
     cy.log('Manually enter the OTP and resume the test');
     cy.pause(); // Execution stops here until you resume manually
 
-    cy.get('.w-\\[296px\\]').click(); // Replace with the selector for the Verify button
+    cy.get('.w-\\[296px\\]').click(); //for the Verify button
       
     cy.contains('New Password').should('exist')
 
