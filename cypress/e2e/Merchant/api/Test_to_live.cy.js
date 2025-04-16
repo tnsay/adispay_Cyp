@@ -96,6 +96,8 @@ describe ('allows user to change to live mode within requirement ,qa', () =>{
             });          
             cy.get('.flex-col > .h-full').click()
             
+            cy.get(':nth-child(6) > .w-\\[100\\%\\] > .fixed > .ml-6 > .text-\\[15px\\]').should('be.visible').and('contain', 'Add One Bank to withdraw your collected money')
+            cy.get(':nth-child(6) > .w-\[100\%\] > .relative > .gap-8 > :nth-child(2) > .bg-\[\#00824F\]')
 
       })
     

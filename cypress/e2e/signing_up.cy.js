@@ -15,10 +15,10 @@ describe('User Sign-Up Flow', () => {
       // Fill out the signup form
       cy.get('#firstName').should('be.visible').type("Asap");
       cy.get('#nameInput').should('be.visible').type("asefa");
-      cy.get('.mt-\\[11px\\] > .relative > .w-\\[353\\.04px\\]').type('Ttes2@exam.com');
+      cy.get('.mt-\\[11px\\] > .relative > .w-\\[353\\.04px\\]').type('T@ex.com');
       cy.get('#cName').should('be.visible').type("newcampp");
-      cy.get('#passwordInput').should('be.visible').type('Ttes2@12345');
-      cy.get('#confirmPasswordInput').should('be.visible').type('Ttes2@12345');
+      cy.get('#passwordInput').should('be.visible').type('Test@1212');
+      cy.get('#confirmPasswordInput').should('be.visible').type('Test@1212');
       cy.get('.form-control').clear().should('be.visible').type('251943327311');
       cy.get('.text-\\[13px\\]').click();
       cy.contains('Merchant Service Agreement').should('exist');

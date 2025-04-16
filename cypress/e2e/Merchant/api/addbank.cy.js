@@ -2,7 +2,7 @@ describe ('it should allow user to add bank', () =>{
 
     beforeEach(() => {
 
-    cy.loginmerchant("925609534", "Tina@1234"); 
+    cy.loginmerchant("943327311", "Test@1212"); 
 
     });
 
@@ -16,8 +16,8 @@ describe ('it should allow user to add bank', () =>{
           
           cy.get('.pl-\\[3\\%\\] > :nth-child(2) > .flex').click()
           cy.get('.fixed > .bg-white').should('be.visible').and('contain', 'Add New Bank')
-          cy.get('.w-1\\/2.max-md\\:w-\\[100\\%\\] > .relative > .w-\\[294\\.5px\\]').type('FName LName')
-          cy.get('.flex > .relative > .w-\\[294\\.5px\\]').type('3434353534')
+          cy.get('.w-1\\/2.max-md\\:w-\\[100\\%\\] > .relative > .w-\\[294\\.5px\\]').type('FName2 LName3')
+          cy.get('.flex > .relative > .w-\\[294\\.5px\\]').type('12457878')
         //   cy.get('.w-1\\/2.max-md\\:w-\\[80\\%\\] > .relative > .w-\\[294\\.5px\\]')
         //   .should('be.visible')
         //   .find('option')
@@ -33,7 +33,7 @@ describe ('it should allow user to add bank', () =>{
           cy.get('.w-1\\/2.max-md\\:w-\\[80\\%\\] > .relative > .w-\\[294\\.5px\\]')
             .select(randomValue); // Select the option by value
         });
-        cy.get('.w-\\[300px\\]').type('newb')
+        cy.get('.w-\\[300px\\]').type('newb2')
       
         cy.get('.bg-\\[\\#00A16A\\]').then(($btn) => {
             cy.wrap($btn).should('be.visible').invoke('css', 'background-color').then((bgColor) => {
@@ -44,14 +44,22 @@ describe ('it should allow user to add bank', () =>{
               }
             });
           });
-          cy.get('.bg-white > .h-\\[fit\\]').should('be.visible').and('contain', 'Bank added successfully, awaiting approval')
-          cy.get('.my-5 > .text-center').click()
-          
-    })
+        cy.get('.bg-white > .h-\\[fit\\]').should('be.visible').and('contain', 'Bank added successfully, awaiting approval')
+        cy.get('.my-5 > .text-center').click()
 
-    it('should be able to add primary bank'), () =>{
-        cy.visit('/');
+           //confirm last row status is 'pending'  asuming acct uniqu
+        cy.contains('td', '3434351123534')  
+           .parent('tr')                    // Get the entire row
+           .find('td')                      // Find all columns
+           .eq(5)                           // Index of the Status cell 
+           .should('have.text', 'pending');
+         
+       })      
+    
 
+    it('should be able to add primary bank', () =>{
+       cy.visit('/');
+       cy.get('[href="/Banks"]').click()
         cy.get('.flex-col > div.flex > .text-black').should('be.visible').and('contain', 'Primary Bank Account')
 
         cy.get('.bg-green-200').should('be.visible').click()
@@ -63,5 +71,8 @@ describe ('it should allow user to add bank', () =>{
           const randomSelector = selectors[Math.floor(Math.random() * selectors.length)];
           cy.get(randomSelector).click();
 
-    }
+          cy.get('[data-testid="CancelOutlinedIcon"]').click();
+
+        })
+
 })
