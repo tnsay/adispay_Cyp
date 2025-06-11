@@ -4,7 +4,7 @@ describe ('allows user to change to live mode within requirement ,qa', () =>{
         cy.visit('/'); // 
 
         // Ensure user is logged in (if needed)
-       cy.loginmerchant("925609534", "Tina@1234"); 
+       cy.loginmerchant("943327311", "Tina@1234"); 
     })
 
     it('visit site',() =>{
@@ -101,9 +101,7 @@ describe ('allows user to change to live mode within requirement ,qa', () =>{
 
       })
     
-
-
-      
+  
     })
 
   

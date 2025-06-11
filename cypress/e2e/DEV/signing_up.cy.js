@@ -14,9 +14,9 @@ describe('User Sign-Up Flow', () => {
     function
      fillSignupForm() {
       // Fill out the signup form
-      cy.get('#firstName').should('be.visible').type("Testuat");
-      cy.get('#nameInput').should('be.visible').type("asefa2");
-      cy.get('.mt-\\[11px\\] > .relative > .w-\\[353\\.04px\\]').type('T1@ex.com');
+      cy.get('#firstName').should('be.visible').type("Testdev");
+      cy.get('#nameInput').should('be.visible').type("Test2");
+      cy.get('.mt-\\[11px\\] > .relative > .w-\\[353\\.04px\\]').type('T2@exmp.com');
       cy.get('#cName').should('be.visible').type("newcampp");
       cy.get('#passwordInput').should('be.visible').type('Test@1212');
       cy.get('#confirmPasswordInput').should('be.visible').type('Test@1212');
@@ -46,8 +46,8 @@ describe('User Sign-Up Flow', () => {
 
 
     // Optional: Log in to confirm the account works
-    cy.get('.form-control').type('943327311');
-    cy.get('#passwordInput').type("Ttes2@12345");
+    cy.get('.form-control').type('925609534');
+    cy.get('#passwordInput').type("Test@1212");
     cy.get('.mt-4 > .w-\\[353\\.04px\\]').click();
 
     cy.url().should('include', '/Dashboard');

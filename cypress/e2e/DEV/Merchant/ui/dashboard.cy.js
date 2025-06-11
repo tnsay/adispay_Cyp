@@ -6,7 +6,7 @@ describe('Dashboard and Navigation Tests', () => {
         // Ensure user is logged in (if needed)
        // cy.loginmerchant("925609534", "Tina@1234"); 
        
-        cy.get('.form-control').type(925609534)
+        cy.get('.form-control').type(943327311)
         cy.get('#passwordInput').type("Tina@1234")
         cy.get('.mt-4 > .w-\\[353\\.04px\\]').click()
         cy.url().should('include', '/Dashboard')
@@ -143,8 +143,4 @@ describe('Dashboard and Navigation Tests', () => {
 
 
     })
-
-
-
-
 });

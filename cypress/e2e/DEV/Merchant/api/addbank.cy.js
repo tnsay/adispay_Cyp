@@ -1,23 +1,21 @@
-describe ('it should allow user to add bank', () =>{
+describe ('Merchant add bank', () =>{
 
     beforeEach(() => {
 
-    cy.loginmerchant("925609534", "Test@1234"); 
+    cy.loginmerchant("925609534", "Tina@12345"); 
 
     });
 
-    it('navigate to bank and add bank',() =>{
-
+    it('allow navigate to bank and add bank',() =>{
+        const random_acct = Math.floor(Math.random() * 1e12).toString();
         cy.visit('/');
-
         cy.get('[href="/Banks"]').click()
 
-        cy.get('.w-\\[100\\%\\].flex-col > :nth-child(1) > .w-full').should('contain.text', 'Banks')      
-          
+        cy.get('.w-\\[100\\%\\].flex-col > :nth-child(1) > .w-full').should('contain.text', 'Banks')               
           cy.get('.pl-\\[3\\%\\] > :nth-child(2) > .flex').click()
           cy.get('.fixed > .bg-white').should('be.visible').and('contain', 'Add New Bank')
           cy.get('.w-1\\/2.max-md\\:w-\\[100\\%\\] > .relative > .w-\\[294\\.5px\\]').type('FName2 LName3')
-          cy.get('.flex > .relative > .w-\\[294\\.5px\\]').type('12457878')
+          cy.get('.flex > .relative > .w-\\[294\\.5px\\]').type(random_acct)
         //   cy.get('.w-1\\/2.max-md\\:w-\\[80\\%\\] > .relative > .w-\\[294\\.5px\\]')
         //   .should('be.visible')
         //   .find('option')
@@ -48,10 +46,10 @@ describe ('it should allow user to add bank', () =>{
         cy.get('.my-5 > .text-center').click()
 
            //confirm last row status is 'pending'  asuming acct uniqu
-        cy.contains('td', '3434351123534')  
+        cy.contains('td', random_acct)  
            .parent('tr')                    // Get the entire row
            .find('td')                      // Find all columns
-           .eq(5)                           // Index of the Status cell 
+           .eq(5)                           // Status cell 
            .should('have.text', 'pending');
          
        })      

@@ -5,16 +5,17 @@ describe('Automate Addispay Checkout', () => {
   it('Creates an order and visits the payment page', () => {
     cy.request({
       method: 'POST',
-      url: 'https://api.addispay.et/checkout-api/v1/create-order',
+      url: 'https://dev.api.addispay.et/checkout-api/v1/create-order',
       headers: {
-          Auth: 'e0445249-ab9f-4790-b4bc-7940da7bb594'
+          //Auth: '5b22e8b9-15be-46b3-b73a-0fbde67ba9e8'
+          Auth: 'ade3e5a8-199f-4432-83b7-ef70d51a239f'
             },
       timeout: 60000,
       body: {
         data: {
-          cancel_url: "https://webhook.site/7ac4478d-d893-4dd9-9921-b22898e017ee",
-          success_url: "https://webhook.site/7ac4478d-d893-4dd9-9921-b22898e017ee",
-          error_url: "https://webhook.site/7ac4478d-d893-4dd9-9921-b22898e017ee",
+          cancel_url: "https://webhook.site/a5cffe4f-217c-4b9c-8da9-157b58ad9b9c",
+          success_url: "https://webhook.site/a5cffe4f-217c-4b9c-8da9-157b58ad9b9c",
+          error_url: "https://webhook.site/a5cffe4f-217c-4b9c-8da9-157b58ad9b9c",
           currency: "ETB",
           email: "random@example.com",
           first_name: faker.name.firstName(),
