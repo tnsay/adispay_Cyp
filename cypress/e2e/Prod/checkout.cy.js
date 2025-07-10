@@ -7,17 +7,17 @@ describe('Automate Addispay Checkout', () => {
     const startTime = Date.now();
     cy.request({
       method: 'POST',
-      url: 'https://dev.api.addispay.et/checkout-api/v1/create-order',
+      url: 'https://api.addispay.et/checkout-api/v1/create-order',
       headers: {
           //Auth: '5b22e8b9-15be-46b3-b73a-0fbde67ba9e8'
-          Auth: '730d99a3-99f0-4add-8d95-3010b3321540'
+          Auth: '0f7f3687-ce5a-41aa-98a1-b6ec5bdd8bee'
             },
       timeout: 60000,
       body: {
         data: {
-          cancel_url: "https://webhook.site/a5cffe4f-217c-4b9c-8da9-157b58ad9b9c",
-          success_url: "https://webhook.site/a5cffe4f-217c-4b9c-8da9-157b58ad9b9c",
-          error_url: "https://webhook.site/a5cffe4f-217c-4b9c-8da9-157b58ad9b9c",
+          cancel_url: "https://webhook.site/1c0dca02-643d-45a8-8074-a03f70376d34",
+          success_url: "https://webhook.site/1c0dca02-643d-45a8-8074-a03f70376d34",
+          error_url: "https://webhook.site/1c0dca02-643d-45a8-8074-a03f70376d34",
           currency: "ETB",
           email: "random@example.com",
           first_name: faker.name.firstName(),
@@ -29,7 +29,7 @@ describe('Automate Addispay Checkout', () => {
           },
           phone_number: "251943327311",
           session_expired: "5000",
-          total_amount: "150.00",
+          total_amount: "1.00",
           tx_ref: crypto.randomUUID()
         },
         message: "all in all good experience"
@@ -37,7 +37,7 @@ describe('Automate Addispay Checkout', () => {
     }).then((response) => {
       expect(response.status).to.eq(200);
       const uuid = response.body.uuid;
-      const checkoutUrl = `${response.body.checkout_url}`;
+      const checkoutUrl = `${response.body.checkout_url}/${uuid}`;
       cy.visit(checkoutUrl);
 
       // Simulate payment method selection
